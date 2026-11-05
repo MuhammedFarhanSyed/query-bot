@@ -76,7 +76,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-> **Note on Compatibility**: `requirements.txt` pins `faiss-cpu==1.8.0.post1` and `langchain-huggingface>=0.1.0,<0.2.0` to ensure complete binary compatibility with NumPy 1.x and LangChain 0.3.x.
+> **Note on Compatibility**: `requirements.txt` specifies `langchain-huggingface>=0.1.0,<0.2.0` and `faiss-cpu` to ensure compatibility across Python environments and LangChain 0.3.x.
 
 ### 5. Configure Environment Variables
 
