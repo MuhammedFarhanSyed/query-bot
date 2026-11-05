@@ -1,5 +1,9 @@
 # Interview Handbook AI Assistant (Query Bot) 🤖
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://query-bot-using.streamlit.app/)
+
+> 🚀 **Live Demo**: Experience the live chatbot on Streamlit Cloud at **[query-bot-using.streamlit.app](https://query-bot-using.streamlit.app/)**!
+
 An interactive, multi-source Retrieval-Augmented Generation (RAG) assistant built using **LangChain**, **FAISS**, **HuggingFace Embeddings**, **Groq LLMs**, and **Streamlit**.
 
 The assistant ingests documents across multiple formats (PDF, TXT, DOCX) as well as live web data, creates dense vector representations, and enables factual, context-grounded conversational search.
@@ -38,7 +42,8 @@ The assistant ingests documents across multiple formats (PDF, TXT, DOCX) as well
 ├── .gitignore                   # Ignored files (secrets, caches, venv)
 ├── chatbot.py                   # Main Streamlit RAG application
 ├── demo_model_practice.py       # Standalone test/practice script
-├── req.txt                      # Project package dependencies
+├── requirements.txt             # Primary package dependencies for deployment
+├── req.txt                      # Alternative requirements file
 └── README.md                    # Project documentation
 ```
 
