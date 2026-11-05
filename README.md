@@ -73,10 +73,10 @@ source venv/bin/activate
 ### 4. Install Dependencies
 
 ```bash
-pip install -r req.txt
+pip install -r requirements.txt
 ```
 
-> **Note on Compatibility**: `req.txt` pins `faiss-cpu==1.8.0.post1` and `langchain-huggingface>=0.1.0,<0.2.0` to ensure complete binary compatibility with NumPy 1.x and LangChain 0.3.x.
+> **Note on Compatibility**: `requirements.txt` pins `faiss-cpu==1.8.0.post1` and `langchain-huggingface>=0.1.0,<0.2.0` to ensure complete binary compatibility with NumPy 1.x and LangChain 0.3.x.
 
 ### 5. Configure Environment Variables
 
@@ -91,6 +91,20 @@ Add your Groq API key inside `.env`:
 ```env
 GROQ_API_KEY=your_groq_api_key_here
 ```
+
+---
+
+## ☁️ Deploying to Streamlit Community Cloud
+
+1. In your Streamlit Community Cloud deployment settings:
+   - **Repository**: `MuhammedFarhanSyed/query-bot`
+   - **Main file path**: `chatbot.py`
+   - **Python version**: Select **Python 3.11** (important: do not use Python 3.14 as PyTorch & FAISS C-extensions require $\le$ 3.12).
+2. Set your Groq API secret under **App Settings $\rightarrow$ Secrets**:
+   ```toml
+   GROQ_API_KEY = "gsk_..."
+   ```
+3. Deploy! Streamlit will automatically detect `requirements.txt` and install all packages.
 
 ---
 

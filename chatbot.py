@@ -16,8 +16,13 @@ Key Features:
 ===============================================================================
 """
 
+import os
 import streamlit as st
-from dotenv import load_dotenv
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -37,8 +42,11 @@ st.set_page_config(page_title="Python Handbook QA", page_icon="🤖")
 st.title("😉 Interview Handbook AI Assistant")
 st.write("Ask questions based on the loaded knowledge sources (Python PDF, Java TXT, React DOCX and about DCL Website).")
 
-# Load environment variables (e.g., GROQ_API_KEY from .env file)
-load_dotenv()
+# Load environment variables (supports .env file and Streamlit Cloud Secrets)
+groq_api_key = os.getenv("GROQ_API_KEY")
+if not groq_api_key and hasattr(st, "secrets") and "GROQ_API_KEY" in st.secrets:
+    groq_api_key = st.secrets["GROQ_API_KEY"]
+    os.environ["GROQ_API_KEY"] = groq_api_key
 
 # Initialize session state array for storing chat message history across UI reruns
 if "messages" not in st.session_state:
@@ -131,7 +139,11 @@ except Exception as e:
 # 4. LLM & PROMPT TEMPLATE SETUP
 # -----------------------------------------------------------------------------
 # Instantiate ChatGroq model using the model selected in the sidebar
-llm = ChatGroq(model_name=model_name)
+if not groq_api_key:
+    st.error("GROQ_API_KEY is not set. Please provide it in a .env file or in Streamlit Cloud Secrets (Settings -> Secrets).")
+    st.stop()
+
+llm = ChatGroq(model_name=model_name, api_key=groq_api_key)
 
 # Define prompt template to strictly restrict LLM responses to retrieved context
 prompt = PromptTemplate(
